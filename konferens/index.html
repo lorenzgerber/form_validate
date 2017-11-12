@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Konferensanmälan</title>
+    <link rel="stylesheet" href="style/structure.css" type="text/css" />
+    <link rel="stylesheet" href="style/form.css" type="text/css" />
+    <link rel="stylesheet" href="style/theme.css" type="text/css" />
+    <script type ="text/javascript" src ="scripts/validate.js"></script>
+</head>
+<body id="public">
+<div id="container">
+
+    <h1 id="logo">
+        <a href="http://wufoo.com" title="Powered by Wufoo">Wufoo</a>
+    </h1>
+
+
+    <form id="registration_form" class="wufoo topLabel page" enctype="multipart/form-data" method="post"
+          action="dummy.html">
+
+        <div id="header" class="header info">
+            <h2>Konferensanmälan</h2>
+
+            <div>Anmäl dig genom att skriva in uppgifterna och skicka detta formulär!</div>
+        </div>
+
+        <ul>
+            <li id="foli0" class=" ">
+                <label class="desc" for="field_firstname">Namn</label>
+                        <span>
+                            <input id="field_firstname" name="field_firstname" type="text" class="field text fn"
+                                   value="" size="10" tabindex="1"/>
+                            <label for="field_firstname">Förnamn</label>
+                        </span> <span>
+                            <input id="field_lastname" name="field_lastname" type="text" class="field text ln" value=""
+                                   size="14" tabindex="2"/>
+                            <label for="field_lastname">Efternamn</label>
+                        </span>
+            </li>
+
+            <li id="foli1" class=" ">
+                <label class="desc" for="field_organisation">Organisation</label>
+
+                <div>
+                    <input id="field_organisation" name="field_organisation" type="text" class="field text medium"
+                           value="" maxlength="255" tabindex="3" onkeyup=""/>
+                </div>
+            </li>
+
+
+            <li id="foli2" class=" ">
+                <label class="desc" for="field_email">Epost</label>
+
+                <div>
+                    <input id="field_email" name="field_email" type="text" class="field text medium" value=""
+                           maxlength="255" tabindex="4"/>
+                </div>
+            </li>
+
+
+            <li id="foli3" class=" ">
+                <fieldset>
+                    <!--[if !IE | (gte IE 8)]>
+                    <legend id="title10" class="desc">
+                        Presentationsformat
+                    </legend>
+                    <![endif]-->
+                    <!--[if lt IE 8]>
+                    <label id="title10" class="desc">
+                        Format of Presentation
+                    </label>
+                    <![endif]-->
+                    <div>
+                                <span>
+                                    <input id="pres_type_1" name="pres_type" type="radio" class="field radio"
+                                           value="lecture" tabindex="5" checked="checked"
+                                            />
+                                    <label class="choice" for="pres_type_1">Föreläsning</label>
+                                </span>
+                                <span>
+                                    <input id="pres_type_2" name="pres_type" type="radio" class="field radio"
+                                           value="seminar" tabindex="6"/>
+                                    <label class="choice" for="pres_type_2">Seminarium</label>
+                                </span>
+                                <span>
+                                    <input id="pres_type_3" name="pres_type" type="radio" class="field radio"
+                                           value="discussion" tabindex="7"/>
+                                    <label class="choice" for="pres_type_3">Diskussion</label>
+                                </span>
+                    </div>
+
+                </fieldset>
+            </li>
+            <li id="foli4" class=" ">
+                <label class="desc" for="field_pres_title">Titel på föreläsning/seminarium</label>
+
+                <div>
+                    <input id="field_pres_title" name="field_pres_title" type="text" class="field text medium" value=""
+                           maxlength="255" tabindex="8"/>
+                </div>
+            </li>
+
+
+            <li id="foli5" class=" ">
+                <label class="desc" for="field_message">Meddelande till registrator (högst 200 tecken)</label>
+
+                <div>
+                    <textarea id="field_message" name="field_message" cols="50" rows="4" tabindex="12"></textarea>
+                </div>
+            </li>
+            <li class="buttons ">
+                <div>
+                    <input id="saveForm" name="saveForm" class="btTxt submit" type="submit" value="Skicka anmälan"/>
+                </div>
+            </li>
+
+
+        </ul>
+
+    </form>
+
+</div>
+<!--container-->
+</body>
+</html>
