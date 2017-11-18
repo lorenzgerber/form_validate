@@ -1,26 +1,60 @@
 window.onload = attachValidation;
 
-var validObjects = Array();
+var validObjects = {};
+var radioSelector = {};
 
-validObjects[0] = {
+validObjects.firstName = {
   fieldName:'field_firstname',
   fieldText:'Förnamn',
-  missing:true};
+  missing:true
+};
 
-validObjects[1] = {
+validObjects.lastName = {
   fieldName:'field_lastname',
   fieldText:'Efternamn',
-  missing:true};
+  missing:true
+};
 
-validObjects[2] = {
+validObjects.organisation = {
   fieldName:'field_organisation',
   fieldText:'Organisation',
-  missing:true};
+  missing:true
+};
 
-validObjects[3] = {
+validObjects.email = {
   fieldName:'field_email',
-  fieltText:'E-mail',
-  missing:true};
+  fieldText:'E-mail',
+  missing:true
+};
+
+validObjects.title = {
+  fieldName:'field_pres_title',
+  fieltText:'Presentation Title',
+  missing:true
+};
+
+validObjects.description = {
+  fieldName:'field_message',
+  fieldText:'Description',
+  missing:true
+};
+
+radioSelector.lecture = {
+  fieldName:'pres_type_1',
+  fieldText:'Lecture'
+};
+
+radioSelector.seminar = {
+  fieldName:'pres_type_1',
+  fieldText:'Seminar'
+};
+
+radioSelector.discussion = {
+  fieldName:'pres_type_3',
+  fieldTxt:'Discussion'
+};
+
+
 
 function attachValidation() {
   var form = document.getElementById('registration_form');
@@ -33,42 +67,83 @@ function attachValidation() {
 
 function validateForm(event) {
   var validationOk = true;
-  var missingInput ='';
+  var missingInput = Array();
+  var missingInputMsg = '';
 
-  for(var i = 0; i < validObjects.length; i++){
-    if(!entryExists(validObjects[i])){
+  for(var key in validObjects){
+    if(!entryExists(validObjects[key])) {
       event.preventDefault();
       validationOk = false;
-      if(i == validObjects.length-1){
-        missingInput = missingInput + validObjects[i].fieldText + '.';
+      missingInput.push(validObjects[key].fieldText);
+    }
+  }
+  if (!validationOk) {
+    missingInputMsg = 'Du måste fylla i:\n';
+    for (var i = 0; i < missingInput.length; i++) {
+      if (i < missingInput.length - 1){
+        missingInputMsg = missingInputMsg + missingInput[i] + ', ';
       } else {
-        missingInput = missingInput + validObjects[i].fieldText + ', ';
+        missingInputMsg = missingInputMsg + missingInput[i] + '.';
       }
     }
   }
-  if(!validationOk){
-    missingInput = 'Du måste fylla i:\n' + missingInput;
-  }
 
-  if(entryExists(validObjects[3])){
-    email = document.forms['registration_form'][validObjects[3].fieldName].value;
+  if(entryExists(validObjects.email)){
+    email = document.getElementById(validObjects.email.fieldName).value;
     if(!checkEmail(email)){
-      event.preventDefault;
+      event.preventDefault();
       validationOk = false;
-      missingInput = missingInput + '\n\n' + 'Fel i email adress formatet.'
+      if(missingInputMsg.length == 0){
+        missingInputMsg = 'Fel i email adress formatet.'
+      } else {
+        missingInputMsg =
+          missingInputMsg + '\n\n' + 'Fel i email adress formatet.'
+      }
     }
   }
 
+  if(entryExists(validObjects.description)){
+    if(!checkMessageLength()){
+      event.preventDefault();
+      validationOk = false;
+      if(missingInputMsg.length == 0){
+        missingInputMsg = 'Meddelandet ska maximalt vara 200 tecken.'
+      } else {
+        missingInputMsg =
+          missingInputMsg + '\n\n' + 'Meddelandet ska maximalt vara 200 tecken.'
+      }
+    }
+  }
+
+  if(document.getElementById(radioSelector.lecture.fieldName).checked ||
+    document.getElementById(radioSelector.seminar.fieldName).checked){
+
+      if(!entryExists(validObjects.title) || !entryExists(validObjects.description)){
+        event.preventDefault();
+        validationOk = false;
+        if(missingInputMsg.length == 0){
+          missingInputMsg = 'Om du väljer Föreläsning eller Seminar,' +
+            ' så måste du ange titel och meddelandet.'
+        } else {
+          missingInputMsg =
+            missingInputMsg + '\n\n' + 'Om du väljer Föreläsning eller Seminar,' +
+            ' så måste du ange titel och meddelandet.'
+        }
+
+      }
+
+  }
+
 
   if(!validationOk){
-    alert(missingInput);
+    alert(missingInputMsg);
 
   }
 }
 
 function entryExists(validObj){
 
-  var field = document.forms['registration_form'][validObj.fieldName].value;
+  var field = document.getElementById(validObj.fieldName).value;
   if(field.length != 0){
     validObj.missing = false;
     return true;
@@ -79,4 +154,8 @@ function entryExists(validObj){
 function checkEmail(email){
   var pattern = /^([a-zA-Z0-9_.-])+@([a-zA-Z0-9_.-])+\.([a-zA-Z])+([a-zA-Z])+/;
   return pattern.test(email);
+}
+
+function checkMessageLength(){
+  return document.getElementById('field_message').value.length < 200;
 }
