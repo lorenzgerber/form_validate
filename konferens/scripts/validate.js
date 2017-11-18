@@ -129,11 +129,8 @@ function validateForm(event) {
             missingInputMsg + '\n\n' + 'Om du väljer Föreläsning eller Seminar,' +
             ' så måste du ange titel och meddelandet.'
         }
-
       }
-
   }
-
 
   if(!validationOk){
     alert(missingInputMsg);
