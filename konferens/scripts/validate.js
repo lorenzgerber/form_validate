@@ -1,60 +1,20 @@
 window.onload = attachValidation;
 
 var validObjects = {};
+var optionalObjects = {};
 var radioSelector = {};
 
-validObjects.firstName = {
-  fieldName:'field_firstname',
-  fieldText:'Förnamn',
-  missing:true
-};
+validObjects.firstName = {fieldName:'field_firstname', fieldText:'Förnamn', missing:true};
+validObjects.lastName = {fieldName:'field_lastname', fieldText:'Efternamn', missing:true};
+validObjects.organisation = {fieldName:'field_organisation', fieldText:'Organisation', missing:true};
+validObjects.email = {fieldName:'field_email', fieldText:'E-mail', missing:true};
 
-validObjects.lastName = {
-  fieldName:'field_lastname',
-  fieldText:'Efternamn',
-  missing:true
-};
+optionalObjects.title = {fieldName:'field_pres_title', fieltText:'Presentation Title', missing:true};
+optionalObjects.description = {fieldName:'field_message', fieldText:'Description', missing:true};
 
-validObjects.organisation = {
-  fieldName:'field_organisation',
-  fieldText:'Organisation',
-  missing:true
-};
-
-validObjects.email = {
-  fieldName:'field_email',
-  fieldText:'E-mail',
-  missing:true
-};
-
-validObjects.title = {
-  fieldName:'field_pres_title',
-  fieltText:'Presentation Title',
-  missing:true
-};
-
-validObjects.description = {
-  fieldName:'field_message',
-  fieldText:'Description',
-  missing:true
-};
-
-radioSelector.lecture = {
-  fieldName:'pres_type_1',
-  fieldText:'Lecture'
-};
-
-radioSelector.seminar = {
-  fieldName:'pres_type_1',
-  fieldText:'Seminar'
-};
-
-radioSelector.discussion = {
-  fieldName:'pres_type_3',
-  fieldTxt:'Discussion'
-};
-
-
+radioSelector.lecture = {fieldName:'pres_type_1', fieldText:'Lecture'};
+radioSelector.seminar = {fieldName:'pres_type_1', fieldText:'Seminar'};
+radioSelector.discussion = {fieldName:'pres_type_3', fieldTxt:'Discussion'};
 
 function attachValidation() {
   var form = document.getElementById('registration_form');
@@ -102,7 +62,7 @@ function validateForm(event) {
     }
   }
 
-  if(entryExists(validObjects.description)){
+  if(entryExists(optionalObjects.description)){
     if(!checkMessageLength()){
       event.preventDefault();
       validationOk = false;
@@ -118,7 +78,7 @@ function validateForm(event) {
   if(document.getElementById(radioSelector.lecture.fieldName).checked ||
     document.getElementById(radioSelector.seminar.fieldName).checked){
 
-      if(!entryExists(validObjects.title) || !entryExists(validObjects.description)){
+      if(!entryExists(optionalObjects.title) || !entryExists(optionalObjects.description)){
         event.preventDefault();
         validationOk = false;
         if(missingInputMsg.length == 0){
